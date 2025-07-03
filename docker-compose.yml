@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: ./proyecto
+    container_name: nest-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./proyecto:/app
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./FrontEnd/taskFront
+    container_name: react-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./FrontEnd/taskFront:/app
+    depends_on:
+      - backend
+
+  db:
+    image: mongo
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
