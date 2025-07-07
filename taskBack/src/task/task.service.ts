@@ -37,12 +37,4 @@ export class TaskService {
             return this.taskModel.findByIdAndDelete(id)
         }
 
-        async markAsFinished(id:string, update: Partial<TaskS>): Promise<TaskS> {
-            const updatedTask = await this.taskModel.findByIdAndUpdate(id, update, { new: true });
-            if(!updatedTask){
-                throw new NotFoundException(`Task with id ${id} not found`);
-            }
-
-            return updatedTask;
-        }
 }

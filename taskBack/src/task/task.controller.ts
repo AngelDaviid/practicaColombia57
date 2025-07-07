@@ -45,10 +45,4 @@ export class TaskController {
         return task;
     }
 
-    @Patch(':id')
-    async finishTask(@Param('id') id:string, @Body() update: { finished: boolean }) {
-        return this.taskService.markAsFinished(id, update)
-    }
-
-
 }

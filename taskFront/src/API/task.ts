@@ -19,6 +19,7 @@ export const deleteTaskRequest = (id: string) => fetch(`${API}/task/${id}`, {
     method: 'DELETE',
 })
 
+
 export const updateTaskRequest = (id: string, task: UpdateTask) =>
     fetch(`${API}/task/${id}`, {
         method: 'PUT',
