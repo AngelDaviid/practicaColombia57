@@ -7,9 +7,9 @@ interface Props {
 }
 
 function TaskItem ({ task }:Props){
-    const { deleteTask, updateTask } = useTasks();
+    const { deleteTask, markTask } = useTasks();
     return (
-        <div key={task._id} className={"bg-gray-900 p-2 my-2 flex justify-between hover:bg-gray-800 hiver:cursor-pointer"}>
+        <div key={task._id} className={"bg-gray-900 p-2 my-2 flex justify-between hover:bg-gray-800 hover:cursor-pointer"}>
            <div>
                <h1>{task.title}</h1>
                <p>{task.description}</p>
@@ -18,7 +18,7 @@ function TaskItem ({ task }:Props){
                 <IoCheckmarkDone
                     className={task.finished ? "text-green-500" : "text-red-500"}
                     onClick={() =>
-                        updateTask(task._id, {
+                        markTask(task._id, {
                             title: task.title ?? '',
                             description: task.description ?? '',
                             finished: !task.finished

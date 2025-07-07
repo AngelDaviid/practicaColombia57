@@ -1,20 +1,17 @@
-# Usa una imagen oficial de Node.js
-FROM node:18
+# 1. Etapa de build
+FROM node:18-alpine as build
 
-# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
-
-# Copia los archivos necesarios primero (esto ayuda al cacheo)
 COPY package*.json ./
-
-# Instala dependencias excluyendo opcionales (para evitar bugs como el de rollup)
-RUN npm install --omit=optional
-
-# Copia el resto del proyecto
+RUN npm install
 COPY . .
+RUN npm run build
 
-# Expone el puerto que usa Vite (usualmente 5173, pero tú tienes 5174 configurado)
-EXPOSE 5174
+# 2. Etapa final: servidor NGINX
+FROM nginx:alpine
 
-# Comando por defecto
-CMD ["npm", "run", "dev", "--", "--host"]
+# 👇 CAMBIA "build" por "dist"
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

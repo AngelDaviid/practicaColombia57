@@ -1,6 +1,5 @@
 import './App.css'
-import TaskForm from "./Components/TaskForm.tsx";
-import TaskList from "./Components/TaskList.tsx";
+import {TaskList,TaskForm} from "./Components";
 import { TaskProvider } from "./context/TaskContext.tsx";
 
 function App() {

@@ -1,5 +1,4 @@
 import {type ChangeEvent, type FormEvent, useState} from "react";
-import { CreateTaskRequest } from '../API/task'
 import {useTasks} from "../context/useTask.tsx";
 
 
@@ -26,9 +25,9 @@ function TaskForm() {
         <div>
 
             <form onSubmit={handleSubmit}>
-                <input type="text" name='title' className="border-2 border-gray-700 p-2 roudend-lg bg-zinc-800 bloc w-full my-2 " placeholder="write a title" onChange={handleChange}/>
+                <input type="text" name='title' className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 bloc w-full my-2 " placeholder="write a title" onChange={handleChange}/>
 
-                <textarea name="description" rows={3} className="border-2 border-gray-700 p-2 roudend-lg bg-zinc-800 bloc w-full my-2 " placeholder="write a description" onChange={handleChange} ></textarea>
+                <textarea name="description" rows={3} className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 bloc w-full my-2 " placeholder="write a description" onChange={handleChange} ></textarea>
 
                 <label htmlFor="" className="inline-flex items-center">
                     <input
@@ -48,4 +47,4 @@ function TaskForm() {
     )
 }
 
-export default TaskForm;
+export {TaskForm};

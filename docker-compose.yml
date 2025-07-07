@@ -1,34 +1,39 @@
 services:
   backend:
-    build:
-      context: ./proyecto
-    container_name: nest-backend
+    build: ./taskBack
+    container_name: backend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./proyecto:/app
+      - '3000:3000'
+    env_file:
+      - ./taskBack/.env
     depends_on:
-      - db
+      - mongo
+    networks:
+      - app-network
 
   frontend:
-    build:
-      context: ./FrontEnd/taskFront
-    container_name: react-frontend
+    build: ./taskFront
+    container_name: frontend
     ports:
-      - "5173:5173"
-    volumes:
-      - ./FrontEnd/taskFront:/app
-      - /app/node_modules
+      - '80:80'
     depends_on:
       - backend
+    networks:
+      - app-network
 
-  db:
-    image: mongo
-    container_name: mongo-db
+  mongo:
+    image: mongo:6
+    container_name: mongo
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo-data:/data/db
+    networks:
+      - app-network
 
 volumes:
   mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
