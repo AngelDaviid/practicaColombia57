@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import {
     getTaskRequest,
     deleteTaskRequest,
-    updateTaskRequest,
+    markTaskRequest,
     CreateTaskRequest
 } from "../API/task.ts";
 import type { Task, CreateTask, UpdateTask } from "../interfaces/task.interface.ts";
@@ -11,14 +11,14 @@ interface TaskContextValue {
     tasks: Task[];
     createTask: (task: CreateTask) => Promise<void>;
     deleteTask: (id: string) => Promise<void>;
-    updateTask: (id: string, task: UpdateTask) => Promise<void>;
+    markTask: (id: string, task: UpdateTask) => Promise<void>;
 }
 
 export const TaskContext = createContext<TaskContextValue>({
     tasks: [],
     createTask: async () => {},
     deleteTask: async () => {},
-    updateTask: async () => {},
+    markTask: async () => {},
 });
 
 interface Props {
@@ -47,8 +47,8 @@ export const TaskProvider: React.FC<Props> = ({ children }) => {
         }
     };
 
-    const updateTask = async (id: string, task: UpdateTask) => {
-        const res = await updateTaskRequest(id, task);
+    const markTask = async (id: string, task: UpdateTask) => {
+        const res = await markTaskRequest(id, task);
         const data = await res.json();
         setTask(
             tasks.map((t) => (t._id === id ? { ...t, ...data } : t))
@@ -56,7 +56,7 @@ export const TaskProvider: React.FC<Props> = ({ children }) => {
     };
 
     return (
-        <TaskContext.Provider value={{ tasks, createTask, deleteTask, updateTask }}>
+        <TaskContext.Provider value={{ tasks, createTask, deleteTask, markTask }}>
             {children}
         </TaskContext.Provider>
     );
